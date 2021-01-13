@@ -1,0 +1,20 @@
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+import pandas as pd
+import re
+
+
+def get_valid_filename(s):
+    s = str(s).strip().replace(' ', '_')
+    return re.sub(r'(?u)[^-\w.]', '', s)
+
+
+class PgaScrapyPipeline:
+    def process_item(self, item, spider):
+        PATH = "C:\\Users\\strusso\\Documents\\code\\pga-scrapy\\pga_scrapy\\output\\"
+        df = pd.read_html(str(item.pop("table")))[0]
+        filename = get_valid_filename(item.pop("name"))
+
+        df.to_csv(PATH+filename+'.csv', index=False)
