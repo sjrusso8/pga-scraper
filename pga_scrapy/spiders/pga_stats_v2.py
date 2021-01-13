@@ -2,13 +2,15 @@ import scrapy
 
 
 class PgaStatsV2Spider(scrapy.Spider):
+    """Spider used to collect each of the html pages containing PGA tour stats"""
+
     name = 'pga_stats_v2'
     allowed_domains = ['pgatour.com']
     start_urls = ['http://pgatour.com/stats/']
 
     def parse(self, response):
         links = response.xpath(
-            "*//ul[contains(@class, 'nav-tabs-drop')]/li/a[not(@data-toggle)]/@href")[1:8]
+            "*//ul[contains(@class, 'nav-tabs-drop')]/li/a[not(@data-toggle)]/@href")[1:8]  # exclude the first and last url as those don't matter
 
         for link in links:
             stats_page = link.get()
@@ -19,6 +21,7 @@ class PgaStatsV2Spider(scrapy.Spider):
             "*//div[contains(@class, 'table-content')]//a/@href")
 
         for link in links:
+            # change this if you want a different year
             stats_table = link.get()[:-5] + ".y2020.html"
             yield response.follow(stats_table, callback=self.parse_stats_table)
 
