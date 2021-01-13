@@ -13,8 +13,10 @@ def get_valid_filename(s):
 
 
 class PgaScrapyPipeline:
+    """Scrapy Pipeline class to handle the parsed stat pages"""
+
     def process_item(self, item, spider):
-        PATH = "C:\\Users\\strusso\\Documents\\code\\pga-scrapy\\pga_scrapy\\output\\"
+        PATH = ""
         df = pd.read_html(str(item.pop("table")))[0]
         filename = get_valid_filename(item.pop("name"))
 
