@@ -7,6 +7,7 @@ import re
 
 
 def get_valid_filename(s):
+    """A little helper function to strip out illegal characters for filenames"""
     s = str(s).strip().replace(' ', '_')
     return re.sub(r'(?u)[^-\w.]', '', s)
 
