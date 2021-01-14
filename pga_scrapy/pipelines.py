@@ -16,7 +16,7 @@ class PgaScrapyPipeline:
     """Scrapy Pipeline class to handle the parsed stat pages"""
 
     def process_item(self, item, spider):
-        PATH = ""
+        PATH = "C:/Users/sjrus/Documents/code/projects/pga-scraper/pga_scrapy/output/"
         df = pd.read_html(str(item.pop("table")))[0]
         filename = get_valid_filename(item.pop("name"))
 
