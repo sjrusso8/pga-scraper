@@ -28,9 +28,12 @@ class PgaStatsV2Spider(scrapy.Spider):
     def parse_stats_table(self, response):
         pga_stats = {}
 
-        pga_stats['name'] = response.xpath(
+        pga_stats['stat_group'] = response.xpath(
+            "*//ul[contains(@class, 'nav-tabs-drop')]//li[@class='active']/a/text()").get()
+
+        pga_stats['stat_name'] = response.xpath(
             "*//div[@class='header']/h1/text()").get()
 
-        pga_stats['table'] = response.xpath("*//table[@id='statsTable']").get()
+        pga_stats['stat_table'] = response.xpath("*//table[@id='statsTable']").get()
 
         yield pga_stats

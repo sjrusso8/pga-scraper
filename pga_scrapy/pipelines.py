@@ -17,7 +17,11 @@ class PgaScrapyPipeline:
 
     def process_item(self, item, spider):
         PATH = "C:/Users/sjrus/Documents/code/projects/pga-scraper/pga_scrapy/output/"
-        df = pd.read_html(str(item.pop("table")))[0]
-        filename = get_valid_filename(item.pop("name"))
 
-        df.to_csv(PATH+filename+'.csv', index=False)
+        foldername = get_valid_filename(item.pop("stat_group"))
+        filename = get_valid_filename(item.pop("stat_name"))
+        df = pd.read_html(str(item.pop("stat_table")))[0]
+
+        saved_file_name = PATH+"/"+foldername+"/"+foldername+"_"+filename+'.csv'
+
+        df.to_csv(saved_file_name, index=False)
