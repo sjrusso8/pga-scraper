@@ -22,6 +22,6 @@ class PgaScrapyPipeline:
         filename = get_valid_filename(item.pop("stat_name"))
         df = pd.read_html(str(item.pop("stat_table")))[0]
 
-        saved_file_name = PATH+"/"+foldername+"/"+foldername+"_"+filename+'.csv'
+        saved_file_name = PATH+foldername+"_"+filename+'.csv'
 
         df.to_csv(saved_file_name, index=False)
