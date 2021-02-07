@@ -22,7 +22,7 @@ class PgaStatsV2Spider(scrapy.Spider):
 
         for link in links:
             # change this if you want a different year
-            stats_table = link.get()[:-5] + ".y2020.html"
+            stats_table = link.get()[:-5] + ".y2020.html" # Change this line to a different year to collect different stats. Format y.YYYY.html
             yield response.follow(stats_table, callback=self.parse_stats_table)
 
     def parse_stats_table(self, response):
